@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget/firebase_options.dart';
+import 'package:my_budget/core/router/app_router.dart' as router;
 
 void main() async {
   await Firebase.initializeApp(
@@ -15,11 +16,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      initialRoute: router.Router.landingView,
+      onGenerateRoute: router.Router.generateRoute,
     );
   }
 }
