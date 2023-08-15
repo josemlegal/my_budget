@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_budget/core/barell/views.dart';
+import 'package:my_budget/core/barells/views.dart';
 
 class Router {
   //Auth views
