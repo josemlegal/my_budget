@@ -7,15 +7,16 @@ import 'package:my_budget/core/dependency_injection/locator.dart';
 import 'package:my_budget/core/theme/app_theme.dart';
 import 'package:my_budget/firebase_options.dart';
 import 'package:my_budget/core/router/app_router.dart' as router;
+import 'package:stacked_services/stacked_services.dart' as services;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  setupLocator();
   final sharedPreferences = locator<SharedPreferenceApi>();
   await sharedPreferences.init();
-  setupLocator();
   runApp(
     const ProviderScope(child: MainApp()),
   );
@@ -34,6 +35,7 @@ class MainApp extends StatelessWidget {
       initialRoute:
           isUserLoggedIn ? router.Router.tabsView : router.Router.landingView,
       onGenerateRoute: router.Router.generateRoute,
+      navigatorKey: services.StackedService.navigatorKey,
     );
   }
 }
