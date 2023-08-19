@@ -64,18 +64,15 @@ class _LandingViewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        const SizedBox(height: 100),
+        SizedBox(height: 100),
         Center(
-          //TODO: Add the correct asset.
-          child: Image.asset(
-            'assets/images/penguin_meals_logo.jpg',
-            width: 300,
-            height: 300,
-          ),
-        ),
-        const SizedBox(
+            //TODO: Add the correct asset.
+            child: FlutterLogo(
+          size: 100,
+        )),
+        SizedBox(
           height: 20,
         ),
       ],
