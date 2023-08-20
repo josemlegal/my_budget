@@ -31,6 +31,7 @@ class _HomeViewState extends ConsumerState<ProfileView> {
               )
             : Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(profileViewController.currentUser!.name),
                   ],

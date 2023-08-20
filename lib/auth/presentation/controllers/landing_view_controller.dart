@@ -1,4 +1,6 @@
 // ignore_for_file: constant_identifier_names
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_budget/auth/domain/use_cases/sign_in_with_oauth.dart';
 import 'package:my_budget/core/dependency_injection/locator.dart';
@@ -37,6 +39,7 @@ class LandingViewController extends ChangeNotifier with Validation {
     try {
       final userHasRegisteredBefore =
           await signInWithOAuthUseCase.call(signInType: signInType);
+      log('userHasRegisteredBefore: $userHasRegisteredBefore');
       if (!userHasRegisteredBefore) {
         _navigationService.clearStackAndShow(router.Router.onboardingView);
         isLoading = false;
@@ -48,6 +51,15 @@ class LandingViewController extends ChangeNotifier with Validation {
     } on CustomError catch (e) {
       isLoading = false;
       _snackbarService.showSnackbar(message: e.message);
+      throw CustomError(
+        errorType: e.errorType,
+        errorCode: e.errorCode,
+        message: e.message,
+        devMessage: e.devMessage,
+        longMessage: e.longMessage,
+        stackTrace: e.stackTrace,
+        status: e.status,
+      );
     }
   }
 }

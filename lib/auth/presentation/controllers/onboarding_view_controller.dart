@@ -80,7 +80,7 @@ class OnboardingViewController extends ChangeNotifier with Validation {
       return;
     }
 
-    final newUserModel = User(
+    final newUserModel = UserModel(
       id: _authRepository.userId!,
       name: name,
       email: _authRepository.userEmail!,

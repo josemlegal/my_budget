@@ -16,7 +16,7 @@ class ProfileViewController extends ChangeNotifier {
   final SnackbarService _snackbarService;
 
   // States
-  User? _currentUser;
+  UserModel? _currentUser;
 
   ProfileViewController({
     required NavigationService navigationService,
@@ -32,7 +32,7 @@ class ProfileViewController extends ChangeNotifier {
   bool _isLoading = true;
 
   //Getters
-  User? get currentUser => _currentUser;
+  UserModel? get currentUser => _currentUser;
   bool get isLoading => _isLoading;
 
   Future<void> onInit() async {
