@@ -55,10 +55,6 @@ class LandingViewController extends ChangeNotifier with Validation {
         errorType: e.errorType,
         errorCode: e.errorCode,
         message: e.message,
-        devMessage: e.devMessage,
-        longMessage: e.longMessage,
-        stackTrace: e.stackTrace,
-        status: e.status,
       );
     }
   }

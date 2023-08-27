@@ -16,28 +16,67 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
       if (mounted && ref.read(dashboardViewProvider).currentUser == null) {
         await ref.read(dashboardViewProvider.notifier).getCurrentUser();
       }
+      await ref.read(dashboardViewProvider.notifier).getTransactions();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final homeViewController = ref.watch(dashboardViewProvider);
+    final dashboardViewController = ref.watch(dashboardViewProvider);
+    final isLoading =
+        ref.watch(dashboardViewProvider.select((value) => value.isLoading));
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            homeViewController.currentUser == null
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.read(dashboardViewProvider.notifier).addTransaction();
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: dashboardViewController.currentUser == null
                 ? const CircularProgressIndicator()
-                : Text(
-                    homeViewController.currentUser!.name,
-                    style: const TextStyle(
-                      color: Colors.red,
-                    ),
+                : Column(
+                    children: [
+                      Text(
+                        dashboardViewController.currentUser!.name,
+                        style: const TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          ref
+                              .read(dashboardViewProvider.notifier)
+                              .getTransactions();
+                        },
+                        child: const Text('Get Transactions'),
+                      ),
+                      if (isLoading)
+                        const Text('Loading...')
+                      else
+                        ListView(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: dashboardViewController.listTransactions
+                              .map(
+                                (transaction) => ListTile(
+                                  title: Text(transaction!.title),
+                                  subtitle: Text(transaction.amount.toString()),
+                                  trailing: Text(
+                                    transaction.amount.toString(),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        )
+                    ],
                   ),
-          ],
+          ),
         ),
       ),
     );
