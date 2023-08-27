@@ -14,28 +14,28 @@ class UserRepositoryImplementation implements UserRepository {
   })  : _firestore = firestore,
         _authRepository = authRepository;
 
-  User? _currentUser;
+  UserModel? _currentUser;
 
   @override
   String? get userId => _authRepository.userId;
 
   @override
-  User? get currentUser => _currentUser;
+  UserModel? get currentUser => _currentUser;
 
   @override
-  Future<User?> getUser(String id) {
+  Future<UserModel?> getUser(String id) {
     return _call(() async {
       final response = await _firestore.collection('users').doc(id).get();
       if (response.data() == null) {
         return null;
       }
-      _currentUser = User.fromFirestore(response);
+      _currentUser = UserModel.fromFirestore(response);
       return _currentUser!;
     });
   }
 
   @override
-  Future<void> createUser(User user) {
+  Future<void> createUser(UserModel user) {
     return _call(() async {
       await _firestore
           .collection('users')

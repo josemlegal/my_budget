@@ -1,19 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserModel {
   final String id;
   final String name;
   final String email;
 
-  User({
+  UserModel({
     required this.name,
     required this.email,
     required this.id,
   });
 
-  factory User.fromFirestore(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();
-    return User(
+    return UserModel(
       id: document.id,
       name: data!["name"],
       email: data["email"],
@@ -25,12 +26,12 @@ class User {
         "email": email,
       };
 
-  User copyWith({
+  UserModel copyWith({
     String? name,
     String? email,
     String? id,
   }) {
-    return User(
+    return UserModel(
       name: name ?? this.name,
       email: email ?? this.email,
       id: id ?? this.id,
