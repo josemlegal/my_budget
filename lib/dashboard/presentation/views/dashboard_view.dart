@@ -31,6 +31,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
       floatingActionButton: Column(
         children: [
           FloatingActionButton(
+            heroTag: 'btn1',
             onPressed: () {
               ref.read(dashboardViewProvider.notifier).addTransaction();
             },
@@ -38,6 +39,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
           ),
           const SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn2',
             onPressed: () {
               Navigator.pushNamed(context, '/transaction');
             },
@@ -47,10 +49,12 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Center(
-            child: dashboardViewController.currentUser == null
-                ? const CircularProgressIndicator()
-                : Column(
+          child: dashboardViewController.currentUser == null
+              ? const CircularProgressIndicator()
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         dashboardViewController.currentUser!.name,
@@ -87,7 +91,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                         )
                     ],
                   ),
-          ),
+                ),
         ),
       ),
     );
