@@ -8,6 +8,7 @@ class Router {
   static const profileView = '/profile';
   static const tabsView = '/tabs';
   static const onboardingView = '/onboarding';
+  static const transactionView = '/transaction';
   // static const forgotPasswordView = '/forgot-password';
   // static const subscriptionView = '/subscription-view';
 
@@ -23,6 +24,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => const TabsView());
       case onboardingView:
         return MaterialPageRoute(builder: (_) => const OnboardingView());
+      case transactionView:
+        return MaterialPageRoute(builder: (_) => const TransactionView());
       // case forgotPasswordView:
       //   return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       // case subscriptionView:

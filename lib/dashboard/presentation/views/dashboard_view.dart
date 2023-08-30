@@ -28,11 +28,22 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
         ref.watch(dashboardViewProvider.select((value) => value.isLoading));
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref.read(dashboardViewProvider.notifier).addTransaction();
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              ref.read(dashboardViewProvider.notifier).addTransaction();
+            },
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/transaction');
+            },
+            child: const Icon(Icons.money_outlined),
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
